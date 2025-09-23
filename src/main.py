@@ -24,8 +24,8 @@ logger=logging.getLogger("adult-income")
 run_name = f"run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
 # MLflow config
-MLFLOW_URI = "http://localhost:5000"
-EXPERIMENT_NAME = "adult-income"
+MLFLOW_URI = "sqlite:////mlflow/mlflow.db"  # nota los 4 '/' para ruta absoluta
+EXPERIMENT_NAME = "adult-income-guillermo3"
 
 mlflow.set_tracking_uri(MLFLOW_URI)
 mlflow.set_experiment(EXPERIMENT_NAME)

@@ -45,6 +45,7 @@ Thumbs.db
 coverage.xml
 .cache/
 pytest_cache/
+.pytest_cache/
 htmlcov/
 *.cover
 *.coverage
@@ -64,3 +65,24 @@ docker-compose.override.yml
 *.key
 .envrc
 .env.*
+
+
+# --- ML & data artifacts ---
+mlruns/
+artifacts/
+models/
+*.log
+*.h5
+*.pkl
+*.joblib
+*.ckpt
+
+# --- Data files ---
+data/
+*.csv
+*.tsv
+*.json
+*.xlsx
+*.parquet
+*.zip
+*.gz

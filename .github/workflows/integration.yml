@@ -48,6 +48,6 @@ jobs:
               body: `### 🧪 Test Results with Coverage\n\n\`\`\`\n${truncated}\n\`\`\``
             });
 
-      # - name: Fail the job if tests failed
-      #   if: steps.tests.outcome == 'failure'
-      #   run: exit 1
+      - name: Fail the job if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1

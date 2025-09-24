@@ -12,11 +12,26 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # 🚀 Servicio MLflow en contenedor
+    services:
+      mlflow:
+        image: ghcr.io/mlflow/mlflow:latest
+        ports:
+          - 5000:5000
+        options: >-
+          --health-cmd="curl --fail http://localhost:5000/ || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     env:
-      AZURE_STORAGE_CONNECTION_STRING: ${{secrets.AZURE_STORAGE_CONNECTION_STRING}}
-      EXPERIMENT_NAME: ${{vars.EXPERIMENT_NAME}}
-      MLFLOW_URL: ${{vars.MLFLOW_URL}}
-      MODEL_NAME: ${{vars.MODEL_NAME}}
+      # 🔑 Variables de entorno como estaban
+      AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      EXPERIMENT_NAME: ${{ vars.EXPERIMENT_NAME }}
+      MLFLOW_URL: ${{ vars.MLFLOW_URL }}   # 👈 se mantiene como estaba
+      MODEL_NAME: ${{ vars.MODEL_NAME }}
+
     steps:
       - name: Generate RUN_NAME
         run: echo "RUN_NAME=run-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
@@ -38,7 +53,7 @@ jobs:
         run: |
           curl -o data/raw/adult.data https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
           curl -o data/raw/adult.test https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test
-      
+
       - name: Train and save model
         run: |
           python src/main.py

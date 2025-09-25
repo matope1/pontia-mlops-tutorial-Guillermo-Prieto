@@ -20,7 +20,7 @@ jobs:
           - 5000
 
     env:
-      MLFLOW_URL: http://mlflow:5000
+      MLFLOW_URL: ${{ vars.MLFLOW_URL }}
       AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
       EXPERIMENT_NAME: ${{ vars.EXPERIMENT_NAME }}
       MODEL_NAME: ${{ vars.MODEL_NAME }}
@@ -46,6 +46,18 @@ jobs:
         run: |
           curl -o data/raw/adult.data https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
           curl -o data/raw/adult.test https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test
+
+      - name: Wait for MLflow
+        run: |
+          echo "Waiting for MLflow to start..."
+          for i in {1..30}; do
+            if curl --silent --fail $MLFLOW_URL; then
+              echo "MLflow is up!"
+              break
+            fi
+            echo "Waiting 5 seconds..."
+            sleep 5
+          done
 
       - name: Train and save model
         run: |

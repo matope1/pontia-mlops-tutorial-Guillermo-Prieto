@@ -17,10 +17,10 @@ jobs:
       mlflow:
         image: matope1/mlflow-server:latest
         ports:
-          - 5000
+          - 5000:5000
 
     env:
-      MLFLOW_URL: ${{ vars.MLFLOW_URL }}
+      MLFLOW_URL: http://localhost:5000
       AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
       EXPERIMENT_NAME: ${{ vars.EXPERIMENT_NAME }}
       MODEL_NAME: ${{ vars.MODEL_NAME }}

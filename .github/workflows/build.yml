@@ -72,3 +72,11 @@ jobs:
 
       - name: Register model in MLflow
         run: python scripts/register_model.py
+
+      - name: Save MLflow artifacts
+        run: cp -r /mlflow/artifacts ./mlflow_artifacts
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: mlflow-artifacts
+          path: ./mlflow_artifacts

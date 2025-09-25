@@ -76,7 +76,7 @@ jobs:
       - name: Save MLflow artifacts
         run: cp -r /mlflow/artifacts ./mlflow_artifacts
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: mlflow-artifacts
           path: ./mlflow_artifacts

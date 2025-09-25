@@ -67,6 +67,7 @@ jobs:
         run: echo "RUN_ID=$(cat run_id.txt)" >> $GITHUB_ENV
 
       - name: Run model tests
+        working-directory: ${{ github.workspace }}
         run: python model_tests/test_model.py
 
       - name: Register model in MLflow

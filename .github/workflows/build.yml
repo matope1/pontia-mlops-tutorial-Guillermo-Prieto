@@ -17,12 +17,7 @@ jobs:
       mlflow:
         image: matope1/mlflow-server:latest
         ports:
-          - 5000:5000
-        options: >-
-          --health-cmd="curl --fail http://localhost:5000/ || exit 1"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+          - 5000
 
     env:
       AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
